@@ -27,4 +27,6 @@ public interface GlobalSettingDao {
     @Query("SELECT * FROM global_setting_table")
     LiveData<List<GlobalSettingEntity>> getAllEntities();
 
+    @Query("SELECT * FROM global_setting_table WHERE name='firstUsage'")
+    LiveData<GlobalSettingEntity> getFirstUsageSetting();
 }

@@ -32,6 +32,10 @@ public class GlobalSettingRepository {
         task.execute(globalSetting);
     }
 
+    public LiveData<GlobalSettingEntity> getFirstUsageSetting() {
+        return globalSettingDao.getFirstUsageSetting();
+    }
+
     private static class InsertAsyncTask extends AsyncTask<GlobalSettingEntity, Void, Void> {
         private GlobalSettingDao globalSettingDao;
 
