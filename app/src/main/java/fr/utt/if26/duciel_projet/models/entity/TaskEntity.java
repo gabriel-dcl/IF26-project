@@ -10,20 +10,18 @@ import androidx.room.PrimaryKey;
 public class TaskEntity {
 
     @PrimaryKey
-    private String name;
     @NonNull
-    private Icon icon;
+    private String name;
 
-    public TaskEntity(int id, @NonNull String name, @NonNull Icon icon) {
+
+    public TaskEntity(@NonNull String name) {
         this.name = name;
-        this.icon = icon;
     }
 
     @Override
     public String toString() {
         return "TaskEntity{" +
                 ", name='" + name + '\'' +
-                ", icon=" + icon +
                 '}';
     }
 
@@ -34,14 +32,5 @@ public class TaskEntity {
 
     public void setName(@NonNull String name) {
         this.name = name;
-    }
-
-    @NonNull
-    public Icon getIcon() {
-        return icon;
-    }
-
-    public void setIcon(@NonNull Icon icon) {
-        this.icon = icon;
     }
 }

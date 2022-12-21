@@ -1,6 +1,7 @@
 package fr.utt.if26.duciel_projet.models.DAO;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -12,6 +13,7 @@ import java.util.List;
 import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 
+@Dao
 public interface RecordDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(RecordEntity recordEntity);

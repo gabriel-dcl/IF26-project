@@ -12,6 +12,7 @@ import java.util.List;
 
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 
+@Dao
 public interface TaskDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(TaskEntity task);

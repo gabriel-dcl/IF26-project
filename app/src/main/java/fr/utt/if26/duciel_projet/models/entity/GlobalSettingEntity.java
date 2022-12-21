@@ -1,11 +1,13 @@
 package fr.utt.if26.duciel_projet.models.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "global_setting_table")
 public class GlobalSettingEntity {
     @PrimaryKey
+    @NonNull
     private String name;
     private String value;
 

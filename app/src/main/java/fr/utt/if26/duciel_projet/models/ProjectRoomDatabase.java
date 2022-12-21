@@ -16,15 +16,16 @@ import fr.utt.if26.duciel_projet.models.DAO.GlobalSettingDao;
 import fr.utt.if26.duciel_projet.models.DAO.RecordDao;
 import fr.utt.if26.duciel_projet.models.DAO.TaskDao;
 import fr.utt.if26.duciel_projet.models.entity.GlobalSettingEntity;
+import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
+import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 import fr.utt.if26.duciel_projet.models.repository.GlobalSettingRepository;
 
 
-@Database(entities = {}, version = 1)
+@Database(entities = {GlobalSettingEntity.class, RecordEntity.class, TaskEntity.class}, version = 1)
 public abstract class ProjectRoomDatabase extends RoomDatabase {
     public abstract TaskDao taskDao();
     public abstract RecordDao recordDao();
     public abstract GlobalSettingDao globalSettingDao();
-    public abstract GlobalSettingRepository globalSettingRepository();
 
     private static volatile ProjectRoomDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;

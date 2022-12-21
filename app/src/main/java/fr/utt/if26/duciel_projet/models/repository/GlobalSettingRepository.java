@@ -8,10 +8,8 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import fr.utt.if26.duciel_projet.models.DAO.GlobalSettingDao;
-import fr.utt.if26.duciel_projet.models.DAO.TaskDao;
 import fr.utt.if26.duciel_projet.models.ProjectRoomDatabase;
 import fr.utt.if26.duciel_projet.models.entity.GlobalSettingEntity;
-import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 
 public class GlobalSettingRepository {
     private GlobalSettingDao globalSettingDao;

@@ -1,29 +1,36 @@
 package fr.utt.if26.duciel_projet.models.entity;
 
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.TypeConverters;
 
 import java.util.Date;
 
-@Entity(primaryKeys = {"task","startDate"},tableName = "record_table" )
+@TypeConverters(DateConverter.class)
+@Entity(primaryKeys = {"taskName","startDate"},tableName = "record_table" )
 public class RecordEntity {
 
-    private TaskEntity task;
+    @NonNull
+    private String taskName;
+
+    @NonNull
     private Date startDate;
     private Date finalDate;
 
-    public RecordEntity(TaskEntity task, Date startDate, Date finalDate) {
-        this.task = task;
+    public RecordEntity(String taskName, Date startDate, Date finalDate) {
+        this.taskName = taskName;
         this.startDate = startDate;
         this.finalDate = finalDate;
     }
 
-    public TaskEntity getTask() {
-        return task;
+    @NonNull
+    public String getTaskName() {
+        return taskName;
     }
 
-    public void setTask(TaskEntity task) {
-        this.task = task;
+    public void setTaskName(@NonNull String taskName) {
+        this.taskName = taskName;
     }
 
     public Date getStartDate() {
