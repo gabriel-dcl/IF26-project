@@ -27,10 +27,10 @@ public interface GlobalSettingDao {
     void deleteAll();
 
     @Query("SELECT * FROM global_setting_table")
-    List<GlobalSettingEntity> getAllEntities();
+    LiveData<List<GlobalSettingEntity>>  getAllEntities();
 
     @Query("SELECT * FROM global_setting_table WHERE name LIKE 'firstUsage'")
-    GlobalSettingEntity getFirstUsageSetting();
+    LiveData<GlobalSettingEntity> getFirstUsageSetting();
 
 
     @Query("UPDATE global_setting_table SET value=:newValue WHERE name='firstUsage' ")

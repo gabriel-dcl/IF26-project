@@ -21,8 +21,8 @@ public class GlobalSettingViewModel extends AndroidViewModel {
         this.globalSettingRepository = new GlobalSettingRepository(application);
     }
 
-    public boolean getFirstUsageSetting(){
-         return Boolean.parseBoolean(globalSettingRepository.getFirstUsageSetting().getValue());
+    public LiveData<GlobalSettingEntity> getFirstUsageSetting(){
+         return globalSettingRepository.getFirstUsageSetting();
     }
 
     public void setFirstUsageSetting(boolean value){

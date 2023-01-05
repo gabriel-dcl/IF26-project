@@ -41,7 +41,6 @@ public abstract class ProjectRoomDatabase extends RoomDatabase {
                                     ProjectRoomDatabase.class, "room_database")
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
-                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }

@@ -19,7 +19,7 @@ public class GlobalSettingRepository {
         globalSettingDao = db.globalSettingDao();
     }
 
-    public List<GlobalSettingEntity> getAllGlobalSettings() {
+    public LiveData<List<GlobalSettingEntity>> getAllGlobalSettings() {
         return globalSettingDao.getAllEntities();
     }
 
@@ -28,7 +28,7 @@ public class GlobalSettingRepository {
         task.execute(globalSetting);
     }
 
-    public GlobalSettingEntity getFirstUsageSetting() {
+    public LiveData<GlobalSettingEntity> getFirstUsageSetting() {
         return globalSettingDao.getFirstUsageSetting();
     }
 
