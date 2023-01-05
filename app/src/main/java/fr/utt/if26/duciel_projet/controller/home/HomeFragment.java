@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import fr.utt.if26.duciel_projet.databinding.FragmentHomeBinding;
+import fr.utt.if26.duciel_projet.viewModel.HomeViewModel;
 
 public class HomeFragment extends Fragment {
 
@@ -18,6 +19,9 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
+
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 

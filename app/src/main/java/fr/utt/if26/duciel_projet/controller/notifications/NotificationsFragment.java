@@ -1,5 +1,6 @@
 package fr.utt.if26.duciel_projet.controller.notifications;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +12,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import fr.utt.if26.duciel_projet.databinding.FragmentNotificationsBinding;
+import fr.utt.if26.duciel_projet.viewModel.NotificationsViewModel;
 
 public class NotificationsFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

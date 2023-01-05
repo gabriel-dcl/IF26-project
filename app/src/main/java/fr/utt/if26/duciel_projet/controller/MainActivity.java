@@ -12,19 +12,31 @@ import androidx.navigation.ui.NavigationUI;
 
 import fr.utt.if26.duciel_projet.R;
 import fr.utt.if26.duciel_projet.databinding.ActivityMainBinding;
+import fr.utt.if26.duciel_projet.models.DAO.GlobalSettingDao;
+import fr.utt.if26.duciel_projet.models.entity.GlobalSettingEntity;
+import fr.utt.if26.duciel_projet.viewModel.GlobalSettingViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private GlobalSettingViewModel globalSettingViewModel;
 
-    //       this.globalSettingViewModel = new GlobalSettingViewModel(this.getApplication());
-    //
-    //        setContentView(R.layout.activity_main);
-    //    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        this.globalSettingViewModel = new GlobalSettingViewModel(this.getApplication());
+
+
+         if(this.globalSettingViewModel.getFirstUsageSetting())
+        {
+
+        }
+
+
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

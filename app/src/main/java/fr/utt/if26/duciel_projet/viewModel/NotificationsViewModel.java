@@ -1,4 +1,4 @@
-package fr.utt.if26.duciel_projet.controller.notifications;
+package fr.utt.if26.duciel_projet.viewModel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

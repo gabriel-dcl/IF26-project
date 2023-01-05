@@ -1,7 +1,6 @@
 package fr.utt.if26.duciel_projet.models;
 
 import android.content.Context;
-import android.icu.text.AlphabeticIndex;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -18,10 +17,9 @@ import fr.utt.if26.duciel_projet.models.DAO.TaskDao;
 import fr.utt.if26.duciel_projet.models.entity.GlobalSettingEntity;
 import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
-import fr.utt.if26.duciel_projet.models.repository.GlobalSettingRepository;
 
 
-@Database(entities = {GlobalSettingEntity.class, RecordEntity.class, TaskEntity.class}, version = 1)
+@Database(entities = {GlobalSettingEntity.class, RecordEntity.class, TaskEntity.class}, version = 3)
 public abstract class ProjectRoomDatabase extends RoomDatabase {
     public abstract TaskDao taskDao();
     public abstract RecordDao recordDao();
@@ -33,12 +31,16 @@ public abstract class ProjectRoomDatabase extends RoomDatabase {
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static ProjectRoomDatabase getDatabase(final Context context) {
+
         if (INSTANCE == null) {
+
             synchronized (ProjectRoomDatabase.class) {
                 if (INSTANCE == null) {
 
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    ProjectRoomDatabase.class, "word_database")
+                                    ProjectRoomDatabase.class, "room_database")
+                            .fallbackToDestructiveMigration()
+                            .allowMainThreadQueries()
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
@@ -48,13 +50,25 @@ public abstract class ProjectRoomDatabase extends RoomDatabase {
     }
 
     private static ProjectRoomDatabase.Callback sRoomDatabaseCallback = new ProjectRoomDatabase.Callback() {
+
         @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
+        public void onDestructiveMigration(@NonNull SupportSQLiteDatabase db) {
+            super.onDestructiveMigration(db);
 
             databaseWriteExecutor.execute(() -> {
                 GlobalSettingDao globalSettingDao = INSTANCE.globalSettingDao();
                 globalSettingDao.deleteAll();
+
+                GlobalSettingEntity firstUsageSetting = new GlobalSettingEntity("firstUsage", "true");
+                globalSettingDao.insert(firstUsageSetting);
+            });
+        }
+
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            databaseWriteExecutor.execute(() -> {
+                GlobalSettingDao globalSettingDao = INSTANCE.globalSettingDao();
 
                 GlobalSettingEntity firstUsageSetting = new GlobalSettingEntity("firstUsage", "true");
                 globalSettingDao.insert(firstUsageSetting);

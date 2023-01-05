@@ -18,11 +18,10 @@ public class GlobalSettingRepository {
     public GlobalSettingRepository(Application application) {
         ProjectRoomDatabase db = ProjectRoomDatabase.getDatabase(application);
         globalSettingDao = db.globalSettingDao();
-        allGlobalSettings = globalSettingDao.getAllEntities();
     }
 
-    public LiveData<List<GlobalSettingEntity>> getAllGlobalSettings() {
-        return allGlobalSettings;
+    public List<GlobalSettingEntity> getAllGlobalSettings() {
+        return globalSettingDao.getAllEntities();
     }
 
     public void insert(GlobalSettingEntity globalSetting) {

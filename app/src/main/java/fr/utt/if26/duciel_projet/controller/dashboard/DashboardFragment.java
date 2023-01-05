@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import fr.utt.if26.duciel_projet.databinding.FragmentDashboardBinding;
+import fr.utt.if26.duciel_projet.viewModel.DashboardViewModel;
 
 public class DashboardFragment extends Fragment {
 
