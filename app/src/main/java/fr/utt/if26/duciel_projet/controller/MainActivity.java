@@ -1,6 +1,8 @@
 package fr.utt.if26.duciel_projet.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -25,18 +27,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         this.globalSettingViewModel = new GlobalSettingViewModel(this.getApplication());
 
-
          if(this.globalSettingViewModel.getFirstUsageSetting())
         {
-
+            Intent intent = new Intent(this, DataConsentActivity.class);
+            startActivity(intent);
         }
-
-
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

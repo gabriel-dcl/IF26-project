@@ -30,5 +30,9 @@ public interface GlobalSettingDao {
     List<GlobalSettingEntity> getAllEntities();
 
     @Query("SELECT * FROM global_setting_table WHERE name LIKE 'firstUsage'")
-    LiveData<GlobalSettingEntity> getFirstUsageSetting();
+    GlobalSettingEntity getFirstUsageSetting();
+
+
+    @Query("UPDATE global_setting_table SET value=:newValue WHERE name='firstUsage' ")
+    void updateFirstUsageSetting(String newValue);
 }

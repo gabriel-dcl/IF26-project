@@ -13,7 +13,6 @@ import fr.utt.if26.duciel_projet.models.entity.GlobalSettingEntity;
 
 public class GlobalSettingRepository {
     private GlobalSettingDao globalSettingDao;
-    private LiveData<List<GlobalSettingEntity>> allGlobalSettings;
 
     public GlobalSettingRepository(Application application) {
         ProjectRoomDatabase db = ProjectRoomDatabase.getDatabase(application);
@@ -29,8 +28,17 @@ public class GlobalSettingRepository {
         task.execute(globalSetting);
     }
 
-    public LiveData<GlobalSettingEntity> getFirstUsageSetting() {
+    public GlobalSettingEntity getFirstUsageSetting() {
         return globalSettingDao.getFirstUsageSetting();
+    }
+
+    public void setFirtUsageSetting(String newValue) {
+        globalSettingDao.updateFirstUsageSetting(newValue);
+    }
+
+
+    public void update(GlobalSettingEntity updatedEntity){
+        this.globalSettingDao.update(updatedEntity);
     }
 
     private static class InsertAsyncTask extends AsyncTask<GlobalSettingEntity, Void, Void> {

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompatSideChannelService;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -21,21 +22,18 @@ public class GlobalSettingViewModel extends AndroidViewModel {
     }
 
     public boolean getFirstUsageSetting(){
-        List<GlobalSettingEntity> firstUsageValue = globalSettingRepository.getAllGlobalSettings();
-        if(firstUsageValue == null){
-            System.out.println("===== NULL");
+         return Boolean.parseBoolean(globalSettingRepository.getFirstUsageSetting().getValue());
+    }
 
-        } else{
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                firstUsageValue.forEach(item -> System.out.println(item.getName()));
-            }
-        }
-        // return Boolean.parseBoolean(firstUsageValue);
-    return true;
+    public void setFirstUsageSetting(boolean value){
+        if(value)
+            this.globalSettingRepository.setFirtUsageSetting("true");
+        else
+            this.globalSettingRepository.setFirtUsageSetting("false");
+
     }
 
     public void insert(){
-
         GlobalSettingEntity firstUsageSetting = new GlobalSettingEntity("firstUsage", "true");
         globalSettingRepository.insert(firstUsageSetting);
     }
