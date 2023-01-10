@@ -13,21 +13,19 @@ import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 
 public class TaskRepository {
     private TaskDao taskDao;
-    private LiveData<List<TaskEntity>> allModules;
 
     public TaskRepository(Application application) {
         ProjectRoomDatabase db = ProjectRoomDatabase.getDatabase(application);
         taskDao = db.taskDao();
-        allModules = taskDao.getAllTasks();
     }
 
-    public LiveData<List<TaskEntity>> getAllModules() {
-        return allModules;
+    public LiveData<List<TaskEntity>> getAllTasks() {
+        return taskDao.getAllTasks();
     }
 
-    public void insert(TaskEntity module) {
+    public void insert(TaskEntity taskEntity) {
         InsertAsyncTask task = new InsertAsyncTask(taskDao);
-        task.execute(module);
+        task.execute(taskEntity);
     }
 
     public void deleteBySigle(String sigle) {
