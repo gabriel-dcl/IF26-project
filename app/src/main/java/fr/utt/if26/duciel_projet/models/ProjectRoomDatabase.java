@@ -19,7 +19,7 @@ import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 
 
-@Database(entities = {GlobalSettingEntity.class, RecordEntity.class, TaskEntity.class}, version = 3)
+@Database(entities = {GlobalSettingEntity.class, RecordEntity.class, TaskEntity.class}, version = 7)
 public abstract class ProjectRoomDatabase extends RoomDatabase {
     public abstract TaskDao taskDao();
     public abstract RecordDao recordDao();

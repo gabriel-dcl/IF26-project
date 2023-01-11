@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import fr.utt.if26.duciel_projet.models.DAO.TaskDao;
@@ -22,6 +23,8 @@ public class TaskRepository {
     public LiveData<List<TaskEntity>> getAllTasks() {
         return taskDao.getAllTasks();
     }
+
+
 
     public void insert(TaskEntity taskEntity) {
         InsertAsyncTask task = new InsertAsyncTask(taskDao);
@@ -60,5 +63,4 @@ public class TaskRepository {
             return null;
         }
     }
-
 }

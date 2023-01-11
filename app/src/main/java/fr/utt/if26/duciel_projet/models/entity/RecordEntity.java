@@ -2,10 +2,14 @@ package fr.utt.if26.duciel_projet.models.entity;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.TypeConverters;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @TypeConverters(DateConverter.class)
 @Entity(primaryKeys = {"taskName","startDate"},tableName = "record_table" )
@@ -15,13 +19,25 @@ public class RecordEntity {
     private String taskName;
 
     @NonNull
-    private Date startDate;
-    private Date finalDate;
+    private LocalDateTime startDate;
 
-    public RecordEntity(String taskName, Date startDate, Date finalDate) {
+    @Nullable
+    private LocalDateTime finalDate;
+    private boolean currentlyRecording;
+
+    public boolean isCurrentlyRecording() {
+        return currentlyRecording;
+    }
+
+    public void setCurrentlyRecording(boolean currentlyRecording) {
+        this.currentlyRecording = currentlyRecording;
+    }
+
+    public RecordEntity(String taskName, LocalDateTime startDate, LocalDateTime finalDate, boolean currentlyRecording) {
         this.taskName = taskName;
         this.startDate = startDate;
         this.finalDate = finalDate;
+        this.currentlyRecording = currentlyRecording;
     }
 
     @NonNull
@@ -33,19 +49,19 @@ public class RecordEntity {
         this.taskName = taskName;
     }
 
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getFinalDate() {
+    public LocalDateTime getFinalDate() {
         return finalDate;
     }
 
-    public void setFinalDate(Date finalDate) {
+    public void setFinalDate(LocalDateTime finalDate) {
         this.finalDate = finalDate;
     }
 }

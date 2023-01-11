@@ -33,13 +33,9 @@ public class MainActivity extends AppCompatActivity {
         this.globalSettingViewModel = new GlobalSettingViewModel(this.getApplication());
 
         firstUsage = this.globalSettingViewModel.getFirstUsageSetting();
-        firstUsage.observe(this, new Observer(){
-
-            @Override
-            public void onChanged(Object o) {
-                if(o instanceof GlobalSettingEntity && Boolean.parseBoolean(((GlobalSettingEntity) o).getValue()))
-                        startDataConsentActivity();
-            }
+        firstUsage.observe(this, (Observer) o -> {
+            if(o instanceof GlobalSettingEntity && Boolean.parseBoolean(((GlobalSettingEntity) o).getValue()))
+                    startDataConsentActivity();
         });
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());

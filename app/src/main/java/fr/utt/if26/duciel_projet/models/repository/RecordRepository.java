@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import fr.utt.if26.duciel_projet.models.DAO.RecordDao;
@@ -22,6 +23,12 @@ public class RecordRepository {
         recordDao = db.recordDao();
         allRecords = recordDao.getAllRecords();
     }
+
+    public void updateCurrentlyRecordingRecord(String taskName, LocalDateTime startDate, LocalDateTime stopDate){
+        recordDao.updateCurrentlyRecordingRecord(taskName, startDate.toString(), stopDate.toString());
+    }
+
+    public RecordEntity getCurrentlyRecordingRecord() { return recordDao.getCurrentlyRecordingRecord();}
 
     public LiveData<List<RecordEntity>> getAllRecords() {
         return allRecords;

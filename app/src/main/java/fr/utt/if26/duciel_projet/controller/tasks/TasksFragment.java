@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Chronometer;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -25,12 +26,12 @@ public class TasksFragment extends Fragment {
     private FragmentTasksBinding binding;
     private TasksViewModel tasksViewModel;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         tasksViewModel = new TasksViewModel( this.getActivity().getApplication() );
         binding = FragmentTasksBinding.inflate(inflater, container, false);
+
         View root = binding.getRoot();
 
         RecyclerView recyclerView = root.findViewById(R.id.tasksRecyclerView);
