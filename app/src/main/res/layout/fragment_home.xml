@@ -5,34 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:textAlignment="center"
+    android:gravity="center"
     tools:context=".controller.home.HomeFragment">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo"
+        android:scaleType="centerInside"
+        android:textAlignment="center" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Watch my time"
+        android:textAlignment="center"
+        android:layout_marginBottom="30dp"
         android:textSize="120px"
+        android:fontFamily="sans-serif"
         />
 
     <Spinner
         android:id="@+id/spinner1"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:background="@drawable/spinner_background"
+        />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/startRecordButton"
             android:layout_width="137dp"
+            android:layout_marginRight="40dp"
             android:layout_height="match_parent"
             android:text="Start" />
 
@@ -41,21 +57,19 @@
             android:layout_width="135dp"
             android:layout_height="wrap_content"
             android:text="Stop" />
-    </LinearLayout>
 
+    </LinearLayout>
     <Chronometer
         android:id="@+id/chronometer"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="2dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="0dp"
         android:layout_weight="1"
         android:gravity="center_horizontal"
         android:textSize="60sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="80dp" />
+        tools:ignore="MissingConstraints"/>
+
 
 </LinearLayout>
