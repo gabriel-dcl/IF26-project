@@ -37,7 +37,7 @@ public class TasksFragment extends Fragment {
         View root = binding.getRoot();
 
         RecyclerView recyclerView = root.findViewById(R.id.tasksRecyclerView);
-        TaskRecyclerAdapter adapter = new TaskRecyclerAdapter();
+        TaskRecyclerAdapter adapter = new TaskRecyclerAdapter( ((MainActivity) getActivity() ).getIconPack());
 
         tasksViewModel.getAllTasks().observe(getViewLifecycleOwner(), (Observer<? super List<TaskEntity>>) o -> {
             adapter.submitList(o);

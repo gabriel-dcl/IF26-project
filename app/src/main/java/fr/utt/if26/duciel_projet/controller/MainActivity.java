@@ -6,7 +6,11 @@ import android.provider.ContactsContract;
 import android.view.Window;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.maltaisn.icondialog.pack.IconPack;
+import com.maltaisn.icondialog.pack.IconPackLoader;
+import com.maltaisn.iconpack.defaultpack.IconPackDefault;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.LiveData;
@@ -27,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private GlobalSettingViewModel globalSettingViewModel;
     private LiveData<GlobalSettingEntity> firstUsage;
+
+    @Nullable
+    private IconPack iconPack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,5 +71,21 @@ public class MainActivity extends AppCompatActivity {
     public void startDataConsentActivity(){
         Intent intent = new Intent(this, DataConsentActivity.class);
         startActivity(intent);
+    }
+
+    @Nullable
+    public IconPack getIconPack() {
+        return iconPack != null ? iconPack : loadIconPack();
+    }
+
+    private IconPack loadIconPack() {
+        // Create an icon pack loader with application context.
+        IconPackLoader loader = new IconPackLoader(this.getApplication().getApplicationContext());
+
+        // Create an icon pack and load all drawables.
+        iconPack = IconPackDefault.createDefaultIconPack(loader);
+        iconPack.loadDrawables(loader.getDrawableLoader());
+
+        return iconPack;
     }
 }

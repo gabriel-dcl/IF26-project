@@ -38,9 +38,8 @@ public class AddTaskDialogFragment extends DialogFragment  implements IconDialog
     private TasksViewModel tasksViewModel;
     private IconDialog iconDialog;
     private ImageView imageView;
+    private int selectedIconId = 0;
 
-    @Nullable
-    private IconPack iconPack;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -52,7 +51,7 @@ public class AddTaskDialogFragment extends DialogFragment  implements IconDialog
         builder.setView(inflater.inflate(R.layout.add_task_dialog, null))
                 .setPositiveButton("Ajouter une task", (dialog, id) -> {
                     final EditText newTaskName = getDialog().findViewById(R.id.newTaskName);
-                    TaskEntity taskEntity = new TaskEntity(newTaskName.getText().toString());
+                    TaskEntity taskEntity = new TaskEntity(newTaskName.getText().toString(), selectedIconId);
 
                     tasksViewModel.insertTask(taskEntity);
                 })
@@ -67,6 +66,7 @@ public class AddTaskDialogFragment extends DialogFragment  implements IconDialog
 
 
         this.imageView = dialog.findViewById(R.id.iconSelected);
+        this.imageView.setImageDrawable( getIconDialogIconPack().getIcon(selectedIconId).getDrawable());
 
             Button iconButton = dialog.findViewById(R.id.iconSelector);
         iconButton.setOnClickListener(view ->
@@ -100,47 +100,27 @@ public class AddTaskDialogFragment extends DialogFragment  implements IconDialog
             }
         });
 
-
         return dialog;
     }
 
-public void show(){
-    this.iconDialog.show(getChildFragmentManager(), "sefsef");
-
-}
+    public void show(){
+        this.iconDialog.show(getChildFragmentManager(), "sefsef");
+    }
 
     @Nullable
     @Override
     public IconPack getIconDialogIconPack() {
-        return getIconPack();
+        return  ((MainActivity) this.getActivity()).getIconPack();
     }
-
 
     @Override
     public void onIconDialogCancelled() {}
 
-
-    @Nullable
-    public IconPack getIconPack() {
-        return iconPack != null ? iconPack : loadIconPack();
-    }
-
-    private IconPack loadIconPack() {
-        // Create an icon pack loader with application context.
-        IconPackLoader loader = new IconPackLoader(getContext());
-
-        // Create an icon pack and load all drawables.
-        iconPack = IconPackDefault.createDefaultIconPack(loader);
-        iconPack.loadDrawables(loader.getDrawableLoader());
-
-        return iconPack;
-    }
-
     @Override
     public void onIconDialogIconsSelected(@NonNull IconDialog iconDialog, @NonNull List<Icon> list) {
         if(list.get(0) != null){
-            System.out.println(list.get(0).getId());
             this.imageView.setImageDrawable(list.get(0).getDrawable() );
+            this.selectedIconId = list.get(0).getId();
 
         }
 

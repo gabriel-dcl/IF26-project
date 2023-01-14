@@ -1,8 +1,10 @@
 package fr.utt.if26.duciel_projet.controller.tasks.adapters;
 
+import android.graphics.drawable.Icon;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,15 +13,19 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.maltaisn.icondialog.pack.IconPack;
+
 import java.util.List;
 
 import fr.utt.if26.duciel_projet.R;
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 
 public class TaskRecyclerAdapter extends ListAdapter<TaskEntity, TaskRecyclerAdapter.ModuleHolder> {
+    private IconPack iconPack;
 
-    public TaskRecyclerAdapter() {
+    public TaskRecyclerAdapter(IconPack iconPack) {
         super(taskEntityItemCallback);
+        this.iconPack = iconPack;
     }
 
     @NonNull
@@ -60,16 +66,20 @@ public class TaskRecyclerAdapter extends ListAdapter<TaskEntity, TaskRecyclerAda
 
     class ModuleHolder extends RecyclerView.ViewHolder{
         private TextView taskName ;
+        private ImageView imageView;
 
         ModuleHolder(View itemView) {
             super(itemView);
 
+            this.imageView = itemView.findViewById(R.id.recordIcon);
             this.taskName = itemView.findViewById(R.id.recordName);
         }
 
         void display(TaskEntity task)
         {
             this.taskName.setText(task.getName());
+            if(iconPack.getIcon(task.getIconId()) != null )
+                this.imageView.setImageDrawable( iconPack.getIcon(task.getIconId()).getDrawable() );
         }
 
     }
