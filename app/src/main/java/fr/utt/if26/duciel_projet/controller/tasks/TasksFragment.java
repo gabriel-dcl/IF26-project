@@ -10,6 +10,7 @@ import android.widget.Chronometer;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,8 @@ public class TasksFragment extends Fragment {
         View root = binding.getRoot();
 
         RecyclerView recyclerView = root.findViewById(R.id.tasksRecyclerView);
+
+
         TaskRecyclerAdapter adapter = new TaskRecyclerAdapter( ((MainActivity) getActivity() ).getIconPack());
 
         tasksViewModel.getAllTasks().observe(getViewLifecycleOwner(), (Observer<? super List<TaskEntity>>) o -> {
@@ -44,7 +47,8 @@ public class TasksFragment extends Fragment {
         });
 
 
-        recyclerView.setLayoutManager(new LinearLayoutManager( this.getActivity().getApplicationContext() ));
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), 2);
+        recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
 
         Button popupButton = root.findViewById(R.id.buttonPopup);
