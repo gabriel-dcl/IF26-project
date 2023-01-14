@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context=".controller.home.HomeFragment">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Watch my time"
+        android:textSize="120px"
+        />
+
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="match_parent"

@@ -28,6 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import fr.utt.if26.duciel_projet.R;
 import fr.utt.if26.duciel_projet.databinding.FragmentHomeBinding;
@@ -42,9 +43,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private TasksViewModel tasksViewModel;
     private RecordViewModel recordViewModel;
-
-    private TaskEntity chosenTaskEntity;
-    private String taskName;
+    private String taskName = "";
     private ArrayAdapter<String> adapter;
     private Chronometer chronometer;
     private LiveData<List<TaskEntity>> allTaskEntities;
@@ -54,6 +53,8 @@ public class HomeFragment extends Fragment {
     private RecordEntity currentRecord;
 
 
+
+    private boolean firstItemSelectedIsInitialValue = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -68,16 +69,38 @@ public class HomeFragment extends Fragment {
         this.startButton = root.findViewById(R.id.startRecordButton);
         this.stopButton = root.findViewById(R.id.stopRecordButton);
         this.chronometer = root.findViewById(R.id.chronometer);
-        this.adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item);
+        this.adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item);
+        this.startButton.setEnabled(false);
+        this.stopButton.setEnabled(false);
+
 
         dropdown.setAdapter(adapter);
         adapter.add("Aucune sélection");
         dropdown.setSelection(0);
 
+
         RecordEntity initialValue = recordViewModel.getCurrentlyRecordingRecord();
 
-        this.startButton.setEnabled(false);
-        this.stopButton.setEnabled(false);
+        if(initialValue != null){
+            this.currentRecord = initialValue;
+
+            taskName = initialValue.getTaskName();
+            firstItemSelectedIsInitialValue = true;
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                this.chronometer.setBase(
+                        SystemClock.elapsedRealtime()
+                                + this.currentRecord.getStartDate().atZone(ZoneId.of( "Europe/Paris")).toInstant().toEpochMilli()
+                                - System.currentTimeMillis()
+                                + 3600000
+
+                );
+            }
+
+            chronometer.start();
+            this.stopButton.setEnabled(true);
+        }
 
         allTaskEntities = tasksViewModel.getAllTasks();
 
@@ -87,10 +110,17 @@ public class HomeFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 adapter.add("Aucune sélection");
 
-                o.forEach(item -> {
-                    adapter.add(item.getName());
-                });
+                o.forEach(item -> adapter.add(item.getName()));
 
+                if(o != null)
+                {
+                    int index = IntStream.range(0, o.size())
+                            .filter(i -> taskName.equals(o.get(i).getName()))
+                            .findFirst().orElse(-1);
+
+                    if(index != -1)
+                        dropdown.setSelection(index + 1);
+                }
             }
         });
 
@@ -112,7 +142,6 @@ public class HomeFragment extends Fragment {
 
         stopButton.setOnClickListener(view12 -> {
 
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 currentRecord.setFinalDate(LocalDateTime.now());
                 currentRecord.setCurrentlyRecording(false);
@@ -132,6 +161,12 @@ public class HomeFragment extends Fragment {
                 if(i == 0)
                     return;
 
+                if(currentRecord != null
+                        && currentRecord.isCurrentlyRecording())
+                {
+                    return;
+                }
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
                    Optional<TaskEntity> tempTaskEntity = allTaskEntities.getValue()
@@ -141,10 +176,10 @@ public class HomeFragment extends Fragment {
 
                    if(tempTaskEntity.isPresent())
                    {
+                       System.out.println("selected item");
 
                        taskName = tempTaskEntity.get().getName();
                        startButton.setEnabled(true);
-
                    }
                 }
             }
@@ -155,33 +190,24 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        if(initialValue != null){
-            this.currentRecord = initialValue;
-
-            taskName = initialValue.getTaskName();
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-                this.chronometer.setBase(
-                        SystemClock.elapsedRealtime()
-                                + this.currentRecord.getStartDate().atZone(ZoneId.of( "Europe/Paris")).toInstant().toEpochMilli()
-                                - System.currentTimeMillis()
-                        + 3600000
-
-                );
-            }
-
-            chronometer.start();
-
-            this.stopButton.setEnabled(true);
-        }
-
         return root;
+    }
+
+    public RecordEntity getCurrentRecord() {
+        return currentRecord;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public boolean isFirstItemSelectedIsInitialValue() {
+        return firstItemSelectedIsInitialValue;
+    }
+
+    public void setFirstItemSelectedIsInitialValue(boolean firstItemSelectedIsInitialValue) {
+        this.firstItemSelectedIsInitialValue = firstItemSelectedIsInitialValue;
     }
 }

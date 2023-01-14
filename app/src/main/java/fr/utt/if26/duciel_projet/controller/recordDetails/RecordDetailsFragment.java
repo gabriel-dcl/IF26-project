@@ -1,4 +1,4 @@
-package fr.utt.if26.duciel_projet.controller.notifications;
+package fr.utt.if26.duciel_projet.controller.recordDetails;
 
 import android.content.Context;
 import android.os.Build;
@@ -9,28 +9,24 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-import java.util.Optional;
 
 import fr.utt.if26.duciel_projet.R;
 import fr.utt.if26.duciel_projet.databinding.FragmentNotificationsBinding;
 import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
-import fr.utt.if26.duciel_projet.viewModel.NotificationsViewModel;
 import fr.utt.if26.duciel_projet.viewModel.RecordViewModel;
 import fr.utt.if26.duciel_projet.viewModel.TasksViewModel;
 
-public class NotificationsFragment extends Fragment {
+public class RecordDetailsFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
     private RecordViewModel recordViewModel;

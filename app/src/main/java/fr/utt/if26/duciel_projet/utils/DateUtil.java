@@ -9,7 +9,9 @@ public class DateUtil {
 
     public static String toFrenchDateFormat(LocalDateTime date){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return date.getDayOfMonth() + " / " + date.getMonth() + " / " + date.getYear();
+            return date.getDayOfMonth() + " "
+                    + date.getMonth().toString().toLowerCase()+ " "
+                    + date.getYear();
         }
         return "";
     }
@@ -21,7 +23,8 @@ public class DateUtil {
             minutes = duration.toMinutes();
         }
 
-        return "";
+        return (int) (minutes / 60) + " hours " + (int)(minutes % 60) + " minutes";
+
     }
 
 }

@@ -3,10 +3,12 @@ package fr.utt.if26.duciel_projet.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.Window;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
@@ -29,19 +31,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-  
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//will hide the title
+        getSupportActionBar().hide(); //hide the title bar
+
         this.globalSettingViewModel = new GlobalSettingViewModel(this.getApplication());
 
         firstUsage = this.globalSettingViewModel.getFirstUsageSetting();
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
 
         firstUsage.observe(this, (Observer) o -> {
             if(o instanceof GlobalSettingEntity && Boolean.parseBoolean(((GlobalSettingEntity) o).getValue()))
                     startDataConsentActivity();
 
         });
-
-
-
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

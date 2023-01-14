@@ -1,4 +1,4 @@
-package fr.utt.if26.duciel_projet.controller.notifications;
+package fr.utt.if26.duciel_projet.controller.recordDetails;
 
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -11,14 +11,11 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 import java.time.Duration;
-import java.time.LocalDateTime;
 
 import fr.utt.if26.duciel_projet.R;
 import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
-import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
+import fr.utt.if26.duciel_projet.utils.DateUtil;
 
 public class RecordRecyclerAdapter  extends ListAdapter<RecordEntity, RecordRecyclerAdapter.RecordHolder> {
 
@@ -57,24 +54,22 @@ public class RecordRecyclerAdapter  extends ListAdapter<RecordEntity, RecordRecy
 
     class RecordHolder extends RecyclerView.ViewHolder{
         private  TextView startDate;
-        private TextView endDate;
         private TextView duration;
 
         RecordHolder(View itemView) {
             super(itemView);
 
             this.startDate = itemView.findViewById(R.id.startDate);
-            this.endDate = itemView.findViewById(R.id.endDate);
             this.duration = itemView.findViewById(R.id.duration);
 
         }
 
         void display(RecordEntity task)
         {
-            this.startDate.setText(task.getStartDate().toString());
-            this.endDate.setText(task.getFinalDate().toString());
+            this.startDate.setText(DateUtil.toFrenchDateFormat(task.getStartDate()));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                this.duration.setText( Duration.between(task.getStartDate(), task.getFinalDate()).toString() );
+                this.duration.setText(
+                        DateUtil.durationInHoursAndMinutes(Duration.between(task.getStartDate(), task.getFinalDate()))  );
             }
 
         }
