@@ -28,6 +28,10 @@ public class RecordRepository {
         recordDao.updateCurrentlyRecordingRecord(taskName, startDate.toString(), stopDate.toString());
     }
 
+    public void deleteAll(){
+        recordDao.deleteAll();
+    }
+
     public RecordEntity getCurrentlyRecordingRecord() { return recordDao.getCurrentlyRecordingRecord();}
 
     public LiveData<List<RecordEntity>> getAllRecords() {

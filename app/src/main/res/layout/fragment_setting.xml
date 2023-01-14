@@ -11,29 +11,24 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_tasks"
+        android:text="Settings"
         android:textSize="120px"
         android:fontFamily="sans-serif"
         />
-    <LinearLayout
+    <TextView
+        android:id="@+id/globalsettings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:gravity="right">
+        android:text="Global settings"
+        android:textSize="70px"
+        android:fontFamily="sans-serif"
+        />
 
         <Button
-            android:id="@+id/buttonPopup"
+            android:id="@+id/reset_app_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_task_button"
-            android:layout_marginRight="30dp"
-            />
-    </LinearLayout>
+            android:text="Reset app and erase data" />
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tasksRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="379dp" />
 
 </LinearLayout>

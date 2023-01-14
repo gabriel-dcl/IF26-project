@@ -14,12 +14,18 @@
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="fr.utt.if26.duciel_projet.controller.tasks.TasksFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_tasks"
         tools:layout="@layout/fragment_tasks" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="fr.utt.if26.duciel_projet.controller.recordDetails.RecordDetailsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:label="@string/title_record_details"
+        tools:layout="@layout/fragment_record_details" />
+
+    <fragment
+        android:id="@+id/settings"
+        android:name="fr.utt.if26.duciel_projet.controller.SettingFragment"
+        android:label="@string/title_record_details"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

@@ -36,4 +36,8 @@ public class RecordViewModel extends ViewModel {
         return recordRepository.getRecordsByTaskName(taskName);
     }
 
+    public void deleteAll(){
+        recordRepository.deleteAll();
+    }
+
 }

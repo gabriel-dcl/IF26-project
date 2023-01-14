@@ -27,5 +27,8 @@ public class TasksViewModel extends AndroidViewModel {
         taskRepository.insert(taskEntity);
     }
 
+    public void deleteAll(){
+        taskRepository.deleteAll();
+    }
 
 }

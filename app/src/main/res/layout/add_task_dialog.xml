@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="10dp"
-                android:text="Nouvelle tâche"
+                android:text="@string/new_task_dialog_title"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

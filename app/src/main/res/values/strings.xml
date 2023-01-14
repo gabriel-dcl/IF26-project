@@ -1,7 +1,14 @@
 <resources>
-    <string name="app_name">duciel_projet</string>
+    <string name="app_name">Watch my time</string>
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Tasks</string>
-    <string name="title_notifications">Record Details</string>
+    <string name="title_tasks">My tasks</string>
+    <string name="add_task_button">Add a \n new task</string>
+    <string name="title_record_details">Record Details</string>
+    <string name="record_details_column_1">Day</string>
+    <string name="record_details_column_2">Duration</string>
+    <string name="new_task_dialog_title">New task</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

@@ -31,6 +31,10 @@ public class TaskRepository {
         task.execute(taskEntity);
     }
 
+    public void deleteAll(){
+        this.taskDao.deleteAll();
+    }
+
     public void deleteBySigle(String sigle) {
         DeleteAsyncTask task = new DeleteAsyncTask(taskDao);
         task.execute(sigle);

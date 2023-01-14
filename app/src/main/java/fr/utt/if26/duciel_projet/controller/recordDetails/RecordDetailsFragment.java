@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import fr.utt.if26.duciel_projet.R;
-import fr.utt.if26.duciel_projet.databinding.FragmentNotificationsBinding;
+import fr.utt.if26.duciel_projet.databinding.FragmentRecordDetailsBinding;
 import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 import fr.utt.if26.duciel_projet.viewModel.RecordViewModel;
@@ -28,7 +28,7 @@ import fr.utt.if26.duciel_projet.viewModel.TasksViewModel;
 
 public class RecordDetailsFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentRecordDetailsBinding binding;
     private RecordViewModel recordViewModel;
     private TasksViewModel tasksViewModel;
     private Spinner dropdown;
@@ -43,7 +43,7 @@ public class RecordDetailsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentRecordDetailsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         this.recordViewModel = new RecordViewModel(this.getActivity().getApplication());
         this.dropdown = root.findViewById(R.id.taskSpinner);
