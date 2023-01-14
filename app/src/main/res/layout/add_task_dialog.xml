@@ -36,6 +36,20 @@
                 android:hint="Nom"
                 android:inputType="textPersonName" />
 
+            <Button
+                android:id="@+id/iconSelector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+            <ImageView
+                android:id="@+id/iconSelected"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/logo"
+                android:scaleType="centerInside"
+                android:textAlignment="center" />
+
 
         </LinearLayout>
 

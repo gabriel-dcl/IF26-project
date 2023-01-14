@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import fr.utt.if26.duciel_projet.R;
+import fr.utt.if26.duciel_projet.controller.MainActivity;
 import fr.utt.if26.duciel_projet.controller.tasks.adapters.TaskRecyclerAdapter;
 import fr.utt.if26.duciel_projet.databinding.FragmentTasksBinding;
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
@@ -25,6 +26,7 @@ public class TasksFragment extends Fragment {
 
     private FragmentTasksBinding binding;
     private TasksViewModel tasksViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,15 +48,11 @@ public class TasksFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         Button popupButton = root.findViewById(R.id.buttonPopup);
-        popupButton.setOnClickListener(new View.OnClickListener() {
+        popupButton.setOnClickListener(v -> {
 
-            @Override
-            public void onClick(View v) {
+            AddTaskDialogFragment newFragment = new AddTaskDialogFragment();
+            newFragment.show(getParentFragmentManager(), "test");
 
-                AddTaskDialogFragment newFragment = new AddTaskDialogFragment();
-                newFragment.show(getParentFragmentManager(), "test");
-
-            }
         });
 
         return root;
