@@ -31,9 +31,10 @@ import java.util.Optional;
 
 import fr.utt.if26.duciel_projet.R;
 import fr.utt.if26.duciel_projet.databinding.FragmentHomeBinding;
+import fr.utt.if26.duciel_projet.models.entity.GlobalSettingEntity;
 import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
-import fr.utt.if26.duciel_projet.viewModel.HomeViewModel;
+import fr.utt.if26.duciel_projet.viewModel.GlobalSettingViewModel;
 import fr.utt.if26.duciel_projet.viewModel.RecordViewModel;
 import fr.utt.if26.duciel_projet.viewModel.TasksViewModel;
 public class HomeFragment extends Fragment {
@@ -56,6 +57,7 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -110,7 +112,6 @@ public class HomeFragment extends Fragment {
 
         stopButton.setOnClickListener(view12 -> {
 
-            System.out.println("STOP BUTTON");
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 currentRecord.setFinalDate(LocalDateTime.now());

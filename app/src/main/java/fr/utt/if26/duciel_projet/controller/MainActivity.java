@@ -29,14 +29,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+  
         this.globalSettingViewModel = new GlobalSettingViewModel(this.getApplication());
 
         firstUsage = this.globalSettingViewModel.getFirstUsageSetting();
+
         firstUsage.observe(this, (Observer) o -> {
             if(o instanceof GlobalSettingEntity && Boolean.parseBoolean(((GlobalSettingEntity) o).getValue()))
                     startDataConsentActivity();
+
         });
+
+
+
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

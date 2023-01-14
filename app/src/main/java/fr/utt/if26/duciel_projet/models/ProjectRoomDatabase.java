@@ -19,12 +19,11 @@ import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 
 
-@Database(entities = {GlobalSettingEntity.class, RecordEntity.class, TaskEntity.class}, version = 7)
+@Database(entities = {GlobalSettingEntity.class, RecordEntity.class, TaskEntity.class}, version = 8)
 public abstract class ProjectRoomDatabase extends RoomDatabase {
     public abstract TaskDao taskDao();
     public abstract RecordDao recordDao();
     public abstract GlobalSettingDao globalSettingDao();
-
     private static volatile ProjectRoomDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
     public static final ExecutorService databaseWriteExecutor =
@@ -40,6 +39,7 @@ public abstract class ProjectRoomDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     ProjectRoomDatabase.class, "room_database")
                             .fallbackToDestructiveMigration()
+                            .addCallback(sRoomDatabaseCallback)
                             .allowMainThreadQueries()
                             .build();
                 }
@@ -59,6 +59,7 @@ public abstract class ProjectRoomDatabase extends RoomDatabase {
                 globalSettingDao.deleteAll();
 
                 GlobalSettingEntity firstUsageSetting = new GlobalSettingEntity("firstUsage", "true");
+
                 globalSettingDao.insert(firstUsageSetting);
             });
         }

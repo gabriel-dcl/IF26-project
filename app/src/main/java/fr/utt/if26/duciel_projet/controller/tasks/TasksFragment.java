@@ -38,7 +38,6 @@ public class TasksFragment extends Fragment {
         TaskRecyclerAdapter adapter = new TaskRecyclerAdapter();
 
         tasksViewModel.getAllTasks().observe(getViewLifecycleOwner(), (Observer<? super List<TaskEntity>>) o -> {
-            System.out.println(o);
             adapter.submitList(o);
         });
 

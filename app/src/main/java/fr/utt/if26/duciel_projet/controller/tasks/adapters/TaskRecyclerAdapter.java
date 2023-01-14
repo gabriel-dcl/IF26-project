@@ -28,23 +28,17 @@ public class TaskRecyclerAdapter extends ListAdapter<TaskEntity, TaskRecyclerAda
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.single_task, parent, false);
 
-        System.out.println("Created view Holder");
         return new ModuleHolder(view);
     }
 
     @Override
     public void submitList(@Nullable List<TaskEntity> list) {
-        System.out.println("new list ");
-        System.out.println(list);
         super.submitList(list);
-
-        System.out.println(getCurrentList());
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull ModuleHolder holder, int position) {
-        System.out.println(getItem(position));
 
         holder.display(getItem(position));
     }
@@ -70,7 +64,7 @@ public class TaskRecyclerAdapter extends ListAdapter<TaskEntity, TaskRecyclerAda
         ModuleHolder(View itemView) {
             super(itemView);
 
-            this.taskName = itemView.findViewById(R.id.taskName);
+            this.taskName = itemView.findViewById(R.id.recordName);
         }
 
         void display(TaskEntity task)

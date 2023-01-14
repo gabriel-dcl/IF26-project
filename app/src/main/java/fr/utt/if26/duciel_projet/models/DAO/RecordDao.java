@@ -33,6 +33,9 @@ public interface RecordDao {
     @Query("SELECT * FROM record_table")
     LiveData<List<RecordEntity>> getAllRecords();
 
+    @Query("SELECT * FROM record_table WHERE taskName=:taskName")
+    LiveData<List<RecordEntity>> getRecordsByTaskName(String taskName);
+
     @Query("SELECT * FROM record_table where currentlyRecording = 1")
     RecordEntity getCurrentlyRecordingRecord();
 

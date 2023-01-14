@@ -34,6 +34,11 @@ public class RecordRepository {
         return allRecords;
     }
 
+
+    public LiveData<List<RecordEntity>> getRecordsByTaskName(String taskName) {
+        return recordDao.getRecordsByTaskName(taskName);
+    }
+
     public void insert(RecordEntity module) {
         InsertAsyncTask task = new InsertAsyncTask(recordDao);
         task.execute(module);
