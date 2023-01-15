@@ -30,12 +30,12 @@ import fr.utt.if26.duciel_projet.viewModel.TasksViewModel;
 public class RecordDetailsFragment extends Fragment {
 
     private FragmentRecordDetailsBinding binding;
-    private RecordViewModel recordViewModel;;
+    private RecordViewModel recordViewModel;
+    ;
     private String chosenTaskName = "";
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentRecordDetailsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -57,9 +57,7 @@ public class RecordDetailsFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 adapter.add(String.valueOf(getContext().getResources().getString(R.string.no_selection_dropdown)));
 
-                o.forEach(item ->
-                    adapter.add(item.getName())
-                );
+                o.forEach(item -> adapter.add(item.getName()));
 
             }
         });
@@ -67,7 +65,7 @@ public class RecordDetailsFragment extends Fragment {
         RecordRecyclerAdapter recordRecyclerAdapter = new RecordRecyclerAdapter();
 
         RecyclerView recyclerView = root.findViewById(R.id.recordRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager( this.getActivity().getApplicationContext() ));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity().getApplicationContext()));
         recyclerView.setAdapter(recordRecyclerAdapter);
 
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -75,7 +73,7 @@ public class RecordDetailsFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Object item = adapterView.getItemAtPosition(i);
 
-                if (item instanceof String){
+                if (item instanceof String) {
                     chosenTaskName = (String) item;
                     recordViewModel.getRecordsByTaskName(chosenTaskName).observe(getViewLifecycleOwner(), (Observer<? super List<RecordEntity>>) o -> recordRecyclerAdapter.submitList(o));
                 }

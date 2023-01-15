@@ -5,7 +5,6 @@ import android.os.Build;
 import androidx.room.TypeConverter;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class DateConverter {
 
@@ -14,8 +13,7 @@ public class DateConverter {
         if (dateString == null) {
             return null;
         } else {
-            if(dateString.equals("0"))
-                return null;
+            if (dateString.equals("0")) return null;
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 return LocalDateTime.parse(dateString);

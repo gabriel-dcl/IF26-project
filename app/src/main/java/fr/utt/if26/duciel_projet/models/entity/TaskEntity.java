@@ -1,7 +1,5 @@
 package fr.utt.if26.duciel_projet.models.entity;
 
-import android.graphics.drawable.Icon;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.Entity;
@@ -25,9 +23,7 @@ public class TaskEntity {
 
     @Override
     public String toString() {
-        return "TaskEntity{" +
-                ", name='" + name + '\'' +
-                '}';
+        return "TaskEntity{" + ", name='" + name + '\'' + '}';
     }
 
     @NonNull

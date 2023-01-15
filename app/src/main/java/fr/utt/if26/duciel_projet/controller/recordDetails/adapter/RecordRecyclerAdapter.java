@@ -17,11 +17,12 @@ import fr.utt.if26.duciel_projet.R;
 import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
 import fr.utt.if26.duciel_projet.utils.DateUtil;
 
-public class RecordRecyclerAdapter  extends ListAdapter<RecordEntity, RecordRecyclerAdapter.RecordHolder> {
+public class RecordRecyclerAdapter extends ListAdapter<RecordEntity, RecordRecyclerAdapter.RecordHolder> {
 
     public RecordRecyclerAdapter() {
         super(recordEntityItemCallback);
     }
+
 
     @NonNull
     @Override
@@ -38,8 +39,7 @@ public class RecordRecyclerAdapter  extends ListAdapter<RecordEntity, RecordRecy
         holder.display(getItem(position));
     }
 
-    private static final DiffUtil.ItemCallback<RecordEntity> recordEntityItemCallback
-            = new DiffUtil.ItemCallback<RecordEntity>() {
+    private static final DiffUtil.ItemCallback<RecordEntity> recordEntityItemCallback = new DiffUtil.ItemCallback<RecordEntity>() {
 
         @Override
         public boolean areItemsTheSame(@NonNull RecordEntity oldItem, @NonNull RecordEntity newItem) {
@@ -58,8 +58,8 @@ public class RecordRecyclerAdapter  extends ListAdapter<RecordEntity, RecordRecy
         }
     };
 
-    class RecordHolder extends RecyclerView.ViewHolder{
-        private  TextView startDate;
+    class RecordHolder extends RecyclerView.ViewHolder {
+        private TextView startDate;
         private TextView duration;
 
         RecordHolder(View itemView) {
@@ -70,12 +70,10 @@ public class RecordRecyclerAdapter  extends ListAdapter<RecordEntity, RecordRecy
 
         }
 
-        void display(RecordEntity task)
-        {
+        void display(RecordEntity task) {
             this.startDate.setText(DateUtil.toFrenchDateFormat(task.getStartDate()));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                this.duration.setText(
-                        DateUtil.durationInHoursAndMinutes(Duration.between(task.getStartDate(), task.getFinalDate()))  );
+                this.duration.setText(DateUtil.durationInHoursAndMinutes(Duration.between(task.getStartDate(), task.getFinalDate())));
             }
 
         }

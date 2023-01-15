@@ -27,7 +27,7 @@ public interface GlobalSettingDao {
     void deleteAll();
 
     @Query("SELECT * FROM global_setting_table")
-    LiveData<List<GlobalSettingEntity>>  getAllEntities();
+    LiveData<List<GlobalSettingEntity>> getAllEntities();
 
     @Query("SELECT * FROM global_setting_table WHERE name LIKE 'firstUsage'")
     LiveData<GlobalSettingEntity> getFirstUsageSetting();

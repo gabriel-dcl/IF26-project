@@ -8,11 +8,9 @@ import java.time.LocalDateTime;
 public class DateUtil {
 
     public static String toFrenchDateFormat(LocalDateTime date){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return date.getDayOfMonth() + " "
-                    + date.getMonth().toString().toLowerCase()+ " "
-                    + date.getYear();
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) return date.getDayOfMonth() + " "
+                + date.getMonth().toString().toLowerCase() + " "
+                + date.getYear();
         return "";
     }
 

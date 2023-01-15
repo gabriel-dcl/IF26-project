@@ -9,10 +9,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import fr.utt.if26.duciel_projet.models.DAO.RecordDao;
-import fr.utt.if26.duciel_projet.models.DAO.TaskDao;
 import fr.utt.if26.duciel_projet.models.ProjectRoomDatabase;
 import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
-import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 
 public class RecordRepository {
     private RecordDao recordDao;
@@ -24,15 +22,17 @@ public class RecordRepository {
         allRecords = recordDao.getAllRecords();
     }
 
-    public void updateCurrentlyRecordingRecord(String taskName, LocalDateTime startDate, LocalDateTime stopDate){
+    public void updateCurrentlyRecordingRecord(String taskName, LocalDateTime startDate, LocalDateTime stopDate) {
         recordDao.updateCurrentlyRecordingRecord(taskName, startDate.toString(), stopDate.toString());
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         recordDao.deleteAll();
     }
 
-    public RecordEntity getCurrentlyRecordingRecord() { return recordDao.getCurrentlyRecordingRecord();}
+    public RecordEntity getCurrentlyRecordingRecord() {
+        return recordDao.getCurrentlyRecordingRecord();
+    }
 
     public LiveData<List<RecordEntity>> getAllRecords() {
         return allRecords;
@@ -51,7 +51,7 @@ public class RecordRepository {
     private static class InsertAsyncTask extends AsyncTask<RecordEntity, Void, Void> {
         private RecordDao recordDao;
 
-        InsertAsyncTask(RecordDao moduleDAO){
+        InsertAsyncTask(RecordDao moduleDAO) {
             this.recordDao = moduleDAO;
         }
 

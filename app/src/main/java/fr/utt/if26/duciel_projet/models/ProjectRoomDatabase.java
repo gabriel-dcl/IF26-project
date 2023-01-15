@@ -22,12 +22,14 @@ import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 @Database(entities = {GlobalSettingEntity.class, RecordEntity.class, TaskEntity.class}, version = 9)
 public abstract class ProjectRoomDatabase extends RoomDatabase {
     public abstract TaskDao taskDao();
+
     public abstract RecordDao recordDao();
+
     public abstract GlobalSettingDao globalSettingDao();
+
     private static volatile ProjectRoomDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
-    public static final ExecutorService databaseWriteExecutor =
-            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static ProjectRoomDatabase getDatabase(final Context context) {
 
@@ -36,12 +38,10 @@ public abstract class ProjectRoomDatabase extends RoomDatabase {
             synchronized (ProjectRoomDatabase.class) {
                 if (INSTANCE == null) {
 
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    ProjectRoomDatabase.class, "room_database")
+                    INSTANCE = Room
+                            .databaseBuilder(context.getApplicationContext(), ProjectRoomDatabase.class, "room_database")
                             .fallbackToDestructiveMigration()
-                            .addCallback(sRoomDatabaseCallback)
-                            .allowMainThreadQueries()
-                            .build();
+                            .addCallback(sRoomDatabaseCallback).allowMainThreadQueries().build();
                 }
             }
         }

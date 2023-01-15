@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         // UI TWEAKS
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
@@ -43,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
         // BEGIN OF FIRST USAGE AND DATA CONSENT HANDLING
 
-        LiveData<GlobalSettingEntity>firstUsage = globalSettingViewModel.getFirstUsageSetting();
+        LiveData<GlobalSettingEntity> firstUsage = globalSettingViewModel.getFirstUsageSetting();
 
         firstUsage.observe(this, (Observer) o -> {
-            if(o instanceof GlobalSettingEntity && Boolean.parseBoolean(((GlobalSettingEntity) o).getValue()))
-                    startDataConsentActivity();
+            if (o instanceof GlobalSettingEntity && Boolean.parseBoolean(((GlobalSettingEntity) o).getValue()))
+                startDataConsentActivity();
 
         });
 
@@ -56,15 +55,13 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.settings)
-                .build();
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.settings).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
-    public void startDataConsentActivity(){
+    public void startDataConsentActivity() {
         Intent intent = new Intent(this, DataConsentActivity.class);
         startActivity(intent);
     }

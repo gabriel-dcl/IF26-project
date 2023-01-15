@@ -28,17 +28,17 @@ public class TasksFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        TasksViewModel tasksViewModel = new TasksViewModel( this.getActivity().getApplication() );
+        TasksViewModel tasksViewModel = new TasksViewModel(this.getActivity().getApplication());
         FragmentTasksBinding binding = FragmentTasksBinding.inflate(inflater, container, false);
 
         View root = binding.getRoot();
 
         RecyclerView recyclerView = root.findViewById(R.id.tasksRecyclerView);
 
-        TaskRecyclerAdapter adapter = new TaskRecyclerAdapter( ((MainActivity) getActivity() ).getIconPack());
+        TaskRecyclerAdapter adapter = new TaskRecyclerAdapter(((MainActivity) getActivity()).getIconPack());
 
         tasksViewModel.getAllTasks().observe(getViewLifecycleOwner(), (Observer<? super List<TaskEntity>>) o ->
-            adapter.submitList(o)
+                adapter.submitList(o)
         );
 
 

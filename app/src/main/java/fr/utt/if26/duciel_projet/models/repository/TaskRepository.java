@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import fr.utt.if26.duciel_projet.models.DAO.TaskDao;
@@ -25,25 +24,19 @@ public class TaskRepository {
     }
 
 
-
     public void insert(TaskEntity taskEntity) {
         InsertAsyncTask task = new InsertAsyncTask(taskDao);
         task.execute(taskEntity);
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         this.taskDao.deleteAll();
     }
-
-    public void deleteBySigle(String sigle) {
-        DeleteAsyncTask task = new DeleteAsyncTask(taskDao);
-        task.execute(sigle);
-    }
-
+    
     private static class InsertAsyncTask extends AsyncTask<TaskEntity, Void, Void> {
         private TaskDao moduleDAO;
 
-        InsertAsyncTask(TaskDao moduleDAO){
+        InsertAsyncTask(TaskDao moduleDAO) {
             this.moduleDAO = moduleDAO;
         }
 
@@ -54,17 +47,5 @@ public class TaskRepository {
         }
     }
 
-    private static class DeleteAsyncTask extends AsyncTask<String, Void, Void> {
-        private TaskDao moduleDAO;
 
-        DeleteAsyncTask(TaskDao moduleDAO){
-            this.moduleDAO = moduleDAO;
-        }
-
-        @Override
-        protected Void doInBackground(String... strings) {
-            // moduleDAO.deleteBySigle(strings[0]);
-            return null;
-        }
-    }
 }

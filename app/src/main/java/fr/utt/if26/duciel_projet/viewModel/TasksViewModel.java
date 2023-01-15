@@ -19,7 +19,7 @@ public class TasksViewModel extends AndroidViewModel {
         this.taskRepository = new TaskRepository(application);
     }
 
-    public LiveData<List<TaskEntity>> getAllTasks(){
+    public LiveData<List<TaskEntity>> getAllTasks() {
         return this.taskRepository.getAllTasks();
     }
 
@@ -27,7 +27,7 @@ public class TasksViewModel extends AndroidViewModel {
         taskRepository.insert(taskEntity);
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         taskRepository.deleteAll();
     }
 

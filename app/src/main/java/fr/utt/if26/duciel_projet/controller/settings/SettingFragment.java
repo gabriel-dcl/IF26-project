@@ -34,14 +34,14 @@ public class SettingFragment extends Fragment {
                 })
                 .setNegativeButton(R.string.cancel, (dialog, id) -> {
                 })
-                .setTitle(R.string.reset_app_dialog_title );
+                .setTitle(R.string.reset_app_dialog_title);
 
         final AlertDialog dialog = builder.create();
 
         Button resetApp = root.findViewById(R.id.reset_app_btn);
 
         resetApp.setOnClickListener(view ->
-            dialog.show()
+                dialog.show()
         );
 
         return root;

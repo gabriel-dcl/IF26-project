@@ -6,13 +6,10 @@ import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.TypeConverters;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @TypeConverters(DateConverter.class)
-@Entity(primaryKeys = {"taskName","startDate"},tableName = "record_table" )
+@Entity(primaryKeys = {"taskName", "startDate"}, tableName = "record_table")
 public class RecordEntity {
 
     @NonNull

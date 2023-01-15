@@ -37,14 +37,14 @@ public class GlobalSettingRepository {
     }
 
 
-    public void update(GlobalSettingEntity updatedEntity){
+    public void update(GlobalSettingEntity updatedEntity) {
         this.globalSettingDao.update(updatedEntity);
     }
 
     private static class InsertAsyncTask extends AsyncTask<GlobalSettingEntity, Void, Void> {
         private GlobalSettingDao globalSettingDao;
 
-        InsertAsyncTask(GlobalSettingDao globalSettingDao){
+        InsertAsyncTask(GlobalSettingDao globalSettingDao) {
             this.globalSettingDao = globalSettingDao;
         }
 

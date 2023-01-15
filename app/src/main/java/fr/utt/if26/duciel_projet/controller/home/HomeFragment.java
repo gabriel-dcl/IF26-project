@@ -29,6 +29,7 @@ import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 import fr.utt.if26.duciel_projet.viewModel.RecordViewModel;
 import fr.utt.if26.duciel_projet.viewModel.TasksViewModel;
+
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
@@ -49,7 +50,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        TasksViewModel tasksViewModel = new TasksViewModel( this.getActivity().getApplication() );
+        TasksViewModel tasksViewModel = new TasksViewModel(this.getActivity().getApplication());
         recordViewModel = new RecordViewModel(this.getActivity().getApplication());
 
         this.dropdown = root.findViewById(R.id.spinner1);
@@ -83,7 +84,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initialValueHandler(RecordEntity initialValue) {
-        if(initialValue != null){
+        if (initialValue != null) {
             this.currentRecord = initialValue;
 
             taskName = initialValue.getTaskName();
@@ -92,7 +93,7 @@ public class HomeFragment extends Fragment {
 
                 this.chronometer.setBase(
                         SystemClock.elapsedRealtime()
-                                + this.currentRecord.getStartDate().atZone(ZoneId.of( "Europe/Paris")).toInstant().toEpochMilli()
+                                + this.currentRecord.getStartDate().atZone(ZoneId.of("Europe/Paris")).toInstant().toEpochMilli()
                                 - System.currentTimeMillis()
                                 + 3600000
 
@@ -141,27 +142,25 @@ public class HomeFragment extends Fragment {
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0)
+                if (i == 0)
                     return;
 
-                if(currentRecord != null
-                        && currentRecord.isCurrentlyRecording())
-                {
+                if (currentRecord != null
+                        && currentRecord.isCurrentlyRecording()) {
                     return;
                 }
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-                   Optional<TaskEntity> tempTaskEntity = allTaskEntities.getValue()
+                    Optional<TaskEntity> tempTaskEntity = allTaskEntities.getValue()
                             .stream()
                             .filter(item -> item.getName().equals(adapterView.getItemAtPosition(i)))
                             .findFirst();
 
-                   if(tempTaskEntity.isPresent())
-                   {
-                       taskName = tempTaskEntity.get().getName();
-                       startButton.setEnabled(true);
-                   }
+                    if (tempTaskEntity.isPresent()) {
+                        taskName = tempTaskEntity.get().getName();
+                        startButton.setEnabled(true);
+                    }
                 }
             }
 
@@ -181,13 +180,12 @@ public class HomeFragment extends Fragment {
 
                 o.forEach(item -> adapter.add(item.getName()));
 
-                if(o != null)
-                {
+                if (o != null) {
                     int index = IntStream.range(0, o.size())
                             .filter(i -> taskName.equals(o.get(i).getName()))
                             .findFirst().orElse(-1);
 
-                    if(index != -1)
+                    if (index != -1)
                         dropdown.setSelection(index + 1);
                 }
             }

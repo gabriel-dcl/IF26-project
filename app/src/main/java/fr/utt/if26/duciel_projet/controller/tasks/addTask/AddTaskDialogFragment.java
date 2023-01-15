@@ -34,7 +34,7 @@ import fr.utt.if26.duciel_projet.controller.MainActivity;
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 import fr.utt.if26.duciel_projet.viewModel.TasksViewModel;
 
-public class AddTaskDialogFragment extends DialogFragment  implements IconDialog.Callback {
+public class AddTaskDialogFragment extends DialogFragment implements IconDialog.Callback {
     private IconDialog iconDialog;
     private ImageView imageView;
     private int selectedIconId = 0;
@@ -46,15 +46,13 @@ public class AddTaskDialogFragment extends DialogFragment  implements IconDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-        builder.setView(inflater.inflate(R.layout.add_task_dialog, null))
-                .setPositiveButton(R.string.new_task_button, (dialog, id) -> {
-                    final EditText newTaskName = getDialog().findViewById(R.id.newTaskName);
-                    TaskEntity taskEntity = new TaskEntity(newTaskName.getText().toString(), selectedIconId);
+        builder.setView(inflater.inflate(R.layout.add_task_dialog, null)).setPositiveButton(R.string.new_task_button, (dialog, id) -> {
+            final EditText newTaskName = getDialog().findViewById(R.id.newTaskName);
+            TaskEntity taskEntity = new TaskEntity(newTaskName.getText().toString(), selectedIconId);
 
-                    tasksViewModel.insertTask(taskEntity);
-                })
-                .setNegativeButton(R.string.cancel, (dialog, id) -> {
-                });
+            tasksViewModel.insertTask(taskEntity);
+        }).setNegativeButton(R.string.cancel, (dialog, id) -> {
+        });
 
         final AlertDialog dialog = builder.create();
 
@@ -64,15 +62,12 @@ public class AddTaskDialogFragment extends DialogFragment  implements IconDialog
 
 
         this.imageView = dialog.findViewById(R.id.iconSelected);
-        this.imageView.setImageDrawable( getIconDialogIconPack().getIcon(selectedIconId).getDrawable());
+        this.imageView.setImageDrawable(getIconDialogIconPack().getIcon(selectedIconId).getDrawable());
 
-            Button iconButton = dialog.findViewById(R.id.iconSelector);
-        iconButton.setOnClickListener(view ->
-        {
-            this.iconDialog =
-                    IconDialog.newInstance(new IconDialogSettings.Builder().build());
-            if(iconDialog != null)
-                show();
+        Button iconButton = dialog.findViewById(R.id.iconSelector);
+        iconButton.setOnClickListener(view -> {
+            this.iconDialog = IconDialog.newInstance(new IconDialogSettings.Builder().build());
+            if (iconDialog != null) show();
         });
 
         final EditText newTaskName = dialog.findViewById(R.id.newTaskName);
@@ -97,23 +92,24 @@ public class AddTaskDialogFragment extends DialogFragment  implements IconDialog
         return dialog;
     }
 
-    public void show(){
+    public void show() {
         this.iconDialog.show(getChildFragmentManager(), "");
     }
 
     @Nullable
     @Override
     public IconPack getIconDialogIconPack() {
-        return  ((MainActivity) this.getActivity()).getIconPack();
+        return ((MainActivity) this.getActivity()).getIconPack();
     }
 
     @Override
-    public void onIconDialogCancelled() {}
+    public void onIconDialogCancelled() {
+    }
 
     @Override
     public void onIconDialogIconsSelected(@NonNull IconDialog iconDialog, @NonNull List<Icon> list) {
-        if(list.get(0) != null){
-            this.imageView.setImageDrawable(list.get(0).getDrawable() );
+        if (list.get(0) != null) {
+            this.imageView.setImageDrawable(list.get(0).getDrawable());
             this.selectedIconId = list.get(0).getId();
 
         }

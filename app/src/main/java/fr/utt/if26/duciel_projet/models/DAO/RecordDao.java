@@ -6,15 +6,11 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.TypeConverters;
 import androidx.room.Update;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-import fr.utt.if26.duciel_projet.models.entity.DateConverter;
 import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
-import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 
 @Dao
 public interface RecordDao {
@@ -41,6 +37,5 @@ public interface RecordDao {
 
 
     @Query("UPDATE record_table SET finalDate=:stopDate, currentlyRecording=0 WHERE taskName=:taskName AND startDate=:startDate ")
-    void updateCurrentlyRecordingRecord(String taskName, String startDate,
-                                                          String stopDate);
+    void updateCurrentlyRecordingRecord(String taskName, String startDate, String stopDate);
 }

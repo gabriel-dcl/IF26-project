@@ -1,14 +1,10 @@
 package fr.utt.if26.duciel_projet.viewModel;
 
 import android.app.Application;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompatSideChannelService;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-
-import java.util.List;
 
 import fr.utt.if26.duciel_projet.models.entity.GlobalSettingEntity;
 import fr.utt.if26.duciel_projet.models.repository.GlobalSettingRepository;

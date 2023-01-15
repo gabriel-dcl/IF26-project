@@ -1,6 +1,5 @@
 package fr.utt.if26.duciel_projet.controller.tasks.adapters;
 
-import android.graphics.drawable.Icon;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,12 +37,6 @@ public class TaskRecyclerAdapter extends ListAdapter<TaskEntity, TaskRecyclerAda
     }
 
     @Override
-    public void submitList(@Nullable List<TaskEntity> list) {
-        super.submitList(list);
-    }
-
-
-    @Override
     public void onBindViewHolder(@NonNull ModuleHolder holder, int position) {
 
         holder.display(getItem(position));
@@ -64,8 +57,8 @@ public class TaskRecyclerAdapter extends ListAdapter<TaskEntity, TaskRecyclerAda
         }
     };
 
-    class ModuleHolder extends RecyclerView.ViewHolder{
-        private TextView taskName ;
+    class ModuleHolder extends RecyclerView.ViewHolder {
+        private TextView taskName;
         private ImageView imageView;
 
         ModuleHolder(View itemView) {
@@ -75,11 +68,10 @@ public class TaskRecyclerAdapter extends ListAdapter<TaskEntity, TaskRecyclerAda
             this.taskName = itemView.findViewById(R.id.recordName);
         }
 
-        void display(TaskEntity task)
-        {
+        void display(TaskEntity task) {
             this.taskName.setText(task.getName());
-            if(iconPack.getIcon(task.getIconId()) != null )
-                this.imageView.setImageDrawable( iconPack.getIcon(task.getIconId()).getDrawable() );
+            if (iconPack.getIcon(task.getIconId()) != null)
+                this.imageView.setImageDrawable(iconPack.getIcon(task.getIconId()).getDrawable());
         }
 
     }
