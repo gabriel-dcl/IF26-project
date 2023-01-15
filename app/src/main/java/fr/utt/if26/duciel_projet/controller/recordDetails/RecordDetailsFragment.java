@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import fr.utt.if26.duciel_projet.R;
+import fr.utt.if26.duciel_projet.controller.recordDetails.adapter.RecordRecyclerAdapter;
 import fr.utt.if26.duciel_projet.databinding.FragmentRecordDetailsBinding;
 import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
@@ -29,26 +30,21 @@ import fr.utt.if26.duciel_projet.viewModel.TasksViewModel;
 public class RecordDetailsFragment extends Fragment {
 
     private FragmentRecordDetailsBinding binding;
-    private RecordViewModel recordViewModel;
-    private TasksViewModel tasksViewModel;
-    private Spinner dropdown;
+    private RecordViewModel recordViewModel;;
     private String chosenTaskName = "";
-    LiveData<List<RecordEntity>> records;
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-    }
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentRecordDetailsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
         this.recordViewModel = new RecordViewModel(this.getActivity().getApplication());
-        this.dropdown = root.findViewById(R.id.taskSpinner);
-        tasksViewModel = new TasksViewModel(this.getActivity().getApplication());
-        ArrayAdapter adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item);
+        Spinner dropdown = root.findViewById(R.id.taskSpinner);
+        TasksViewModel tasksViewModel = new TasksViewModel(this.getActivity().getApplication());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item);
 
 
         dropdown.setAdapter(adapter);
@@ -61,13 +57,12 @@ public class RecordDetailsFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 adapter.add(String.valueOf(getContext().getResources().getString(R.string.no_selection_dropdown)));
 
-                o.forEach(item -> {
-                    adapter.add(item.getName());
-                });
+                o.forEach(item ->
+                    adapter.add(item.getName())
+                );
 
             }
         });
-
 
         RecordRecyclerAdapter recordRecyclerAdapter = new RecordRecyclerAdapter();
 
@@ -82,11 +77,7 @@ public class RecordDetailsFragment extends Fragment {
 
                 if (item instanceof String){
                     chosenTaskName = (String) item;
-                    System.out.println(chosenTaskName);
-                    recordViewModel.getRecordsByTaskName(chosenTaskName).observe(getViewLifecycleOwner(), (Observer<? super List<RecordEntity>>) o -> {
-                        System.out.println(o);
-                        recordRecyclerAdapter.submitList(o);
-                    });
+                    recordViewModel.getRecordsByTaskName(chosenTaskName).observe(getViewLifecycleOwner(), (Observer<? super List<RecordEntity>>) o -> recordRecyclerAdapter.submitList(o));
                 }
 
             }

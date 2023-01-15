@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/settings"
-        android:name="fr.utt.if26.duciel_projet.controller.SettingFragment"
+        android:name="fr.utt.if26.duciel_projet.controller.settings.SettingFragment"
         android:label="@string/title_record_details"
         tools:layout="@layout/fragment_setting" />
 </navigation>

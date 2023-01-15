@@ -2,7 +2,6 @@ package fr.utt.if26.duciel_projet.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.Window;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,15 +21,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import fr.utt.if26.duciel_projet.R;
 import fr.utt.if26.duciel_projet.databinding.ActivityMainBinding;
-import fr.utt.if26.duciel_projet.models.DAO.GlobalSettingDao;
 import fr.utt.if26.duciel_projet.models.entity.GlobalSettingEntity;
 import fr.utt.if26.duciel_projet.viewModel.GlobalSettingViewModel;
 
 public class MainActivity extends AppCompatActivity {
-
-    private ActivityMainBinding binding;
-    private GlobalSettingViewModel globalSettingViewModel;
-    private LiveData<GlobalSettingEntity> firstUsage;
 
     @Nullable
     private IconPack iconPack;
@@ -39,15 +33,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);//will hide the title
-        getSupportActionBar().hide(); //hide the title bar
 
-        this.globalSettingViewModel = new GlobalSettingViewModel(this.getApplication());
-
-        firstUsage = this.globalSettingViewModel.getFirstUsageSetting();
-
+        // UI TWEAKS
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
+        GlobalSettingViewModel globalSettingViewModel = new GlobalSettingViewModel(this.getApplication());
+
+        // BEGIN OF FIRST USAGE AND DATA CONSENT HANDLING
+
+        LiveData<GlobalSettingEntity>firstUsage = globalSettingViewModel.getFirstUsageSetting();
 
         firstUsage.observe(this, (Observer) o -> {
             if(o instanceof GlobalSettingEntity && Boolean.parseBoolean(((GlobalSettingEntity) o).getValue()))
@@ -55,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        // END OF FIRST USAGE AND DATA CONSENT HANDLING
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.settings)
@@ -72,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DataConsentActivity.class);
         startActivity(intent);
     }
+
+
+    // ICONS ARE STORED IN THE ACTIVITY TO BE USED BY MANY FRAGMENTS WITHOUT LOADING IT EACH TIME
 
     @Nullable
     public IconPack getIconPack() {

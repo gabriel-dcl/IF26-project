@@ -1,4 +1,4 @@
-package fr.utt.if26.duciel_projet.controller.tasks;
+package fr.utt.if26.duciel_projet.controller.tasks.addTask;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -35,7 +35,6 @@ import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
 import fr.utt.if26.duciel_projet.viewModel.TasksViewModel;
 
 public class AddTaskDialogFragment extends DialogFragment  implements IconDialog.Callback {
-    private TasksViewModel tasksViewModel;
     private IconDialog iconDialog;
     private ImageView imageView;
     private int selectedIconId = 0;
@@ -43,19 +42,18 @@ public class AddTaskDialogFragment extends DialogFragment  implements IconDialog
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        this.tasksViewModel = new TasksViewModel(this.getActivity().getApplication());
-
+        TasksViewModel tasksViewModel = new TasksViewModel(this.getActivity().getApplication());
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         builder.setView(inflater.inflate(R.layout.add_task_dialog, null))
-                .setPositiveButton("Ajouter une task", (dialog, id) -> {
+                .setPositiveButton(R.string.new_task_button, (dialog, id) -> {
                     final EditText newTaskName = getDialog().findViewById(R.id.newTaskName);
                     TaskEntity taskEntity = new TaskEntity(newTaskName.getText().toString(), selectedIconId);
 
                     tasksViewModel.insertTask(taskEntity);
                 })
-                .setNegativeButton("Annuler", (dialog, id) -> {
+                .setNegativeButton(R.string.cancel, (dialog, id) -> {
                 });
 
         final AlertDialog dialog = builder.create();
@@ -92,11 +90,7 @@ public class AddTaskDialogFragment extends DialogFragment  implements IconDialog
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(TextUtils.isEmpty(editable)){
-                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                } else {
-                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-                }
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(!TextUtils.isEmpty(editable));
             }
         });
 
@@ -104,7 +98,7 @@ public class AddTaskDialogFragment extends DialogFragment  implements IconDialog
     }
 
     public void show(){
-        this.iconDialog.show(getChildFragmentManager(), "sefsef");
+        this.iconDialog.show(getChildFragmentManager(), "");
     }
 
     @Nullable

@@ -1,4 +1,4 @@
-package fr.utt.if26.duciel_projet.controller;
+package fr.utt.if26.duciel_projet.controller.settings;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -17,23 +17,15 @@ import fr.utt.if26.duciel_projet.viewModel.RecordViewModel;
 import fr.utt.if26.duciel_projet.viewModel.TasksViewModel;
 
 public class SettingFragment extends Fragment {
-    private Button resetApp;
-    private FragmentSettingBinding binding;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentSettingBinding.inflate(inflater, container, false);
+        FragmentSettingBinding binding = FragmentSettingBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        this.resetApp = root.findViewById(R.id.reset_app_btn);
 
         builder.setPositiveButton(R.string.reset_app_dialog_validate, (dialog, id) -> {
                     new TasksViewModel(getActivity().getApplication()).deleteAll();
@@ -46,11 +38,11 @@ public class SettingFragment extends Fragment {
 
         final AlertDialog dialog = builder.create();
 
-        this.resetApp = root.findViewById(R.id.reset_app_btn);
+        Button resetApp = root.findViewById(R.id.reset_app_btn);
 
-        this.resetApp.setOnClickListener(view -> {
-            dialog.show();
-        });
+        resetApp.setOnClickListener(view ->
+            dialog.show()
+        );
 
         return root;
     }

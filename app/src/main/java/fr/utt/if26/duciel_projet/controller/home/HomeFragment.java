@@ -16,32 +16,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import java.sql.Time;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
 import fr.utt.if26.duciel_projet.R;
 import fr.utt.if26.duciel_projet.databinding.FragmentHomeBinding;
-import fr.utt.if26.duciel_projet.models.entity.GlobalSettingEntity;
 import fr.utt.if26.duciel_projet.models.entity.RecordEntity;
 import fr.utt.if26.duciel_projet.models.entity.TaskEntity;
-import fr.utt.if26.duciel_projet.viewModel.GlobalSettingViewModel;
 import fr.utt.if26.duciel_projet.viewModel.RecordViewModel;
 import fr.utt.if26.duciel_projet.viewModel.TasksViewModel;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private TasksViewModel tasksViewModel;
     private RecordViewModel recordViewModel;
     private String taskName = "";
     private ArrayAdapter<String> adapter;
@@ -52,17 +42,14 @@ public class HomeFragment extends Fragment {
     private Spinner dropdown;
     private RecordEntity currentRecord;
 
-
-
-    private boolean firstItemSelectedIsInitialValue = false;
-
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        tasksViewModel = new TasksViewModel( this.getActivity().getApplication() );
+        TasksViewModel tasksViewModel = new TasksViewModel( this.getActivity().getApplication() );
         recordViewModel = new RecordViewModel(this.getActivity().getApplication());
 
         this.dropdown = root.findViewById(R.id.spinner1);
@@ -81,11 +68,25 @@ public class HomeFragment extends Fragment {
 
         RecordEntity initialValue = recordViewModel.getCurrentlyRecordingRecord();
 
+        initialValueHandler(initialValue);
+
+
+        allTaskEntities = tasksViewModel.getAllTasks();
+
+        allTaskEntitiesObserver();
+
+        buttonObservers();
+
+        dropdownObserver();
+
+        return root;
+    }
+
+    private void initialValueHandler(RecordEntity initialValue) {
         if(initialValue != null){
             this.currentRecord = initialValue;
 
             taskName = initialValue.getTaskName();
-            firstItemSelectedIsInitialValue = true;
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
@@ -101,29 +102,9 @@ public class HomeFragment extends Fragment {
             chronometer.start();
             this.stopButton.setEnabled(true);
         }
+    }
 
-        allTaskEntities = tasksViewModel.getAllTasks();
-
-        allTaskEntities.observe(getViewLifecycleOwner(), (Observer<? super List<TaskEntity>>) o -> {
-            adapter.clear();
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                adapter.add(String.valueOf(getContext().getResources().getString(R.string.no_selection_dropdown)));
-
-                o.forEach(item -> adapter.add(item.getName()));
-
-                if(o != null)
-                {
-                    int index = IntStream.range(0, o.size())
-                            .filter(i -> taskName.equals(o.get(i).getName()))
-                            .findFirst().orElse(-1);
-
-                    if(index != -1)
-                        dropdown.setSelection(index + 1);
-                }
-            }
-        });
-
+    private void buttonObservers() {
         startButton.setOnClickListener(view1 -> {
             chronometer.setBase(SystemClock.elapsedRealtime());
             chronometer.start();
@@ -154,7 +135,9 @@ public class HomeFragment extends Fragment {
             stopButton.setEnabled(false);
             dropdown.setEnabled(true);
         });
+    }
 
+    private void dropdownObserver() {
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -176,8 +159,6 @@ public class HomeFragment extends Fragment {
 
                    if(tempTaskEntity.isPresent())
                    {
-                       System.out.println("selected item");
-
                        taskName = tempTaskEntity.get().getName();
                        startButton.setEnabled(true);
                    }
@@ -189,13 +170,30 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
-        return root;
     }
 
-    public RecordEntity getCurrentRecord() {
-        return currentRecord;
+    private void allTaskEntitiesObserver() {
+        allTaskEntities.observe(getViewLifecycleOwner(), (Observer<? super List<TaskEntity>>) o -> {
+            adapter.clear();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                adapter.add(String.valueOf(getContext().getResources().getString(R.string.no_selection_dropdown)));
+
+                o.forEach(item -> adapter.add(item.getName()));
+
+                if(o != null)
+                {
+                    int index = IntStream.range(0, o.size())
+                            .filter(i -> taskName.equals(o.get(i).getName()))
+                            .findFirst().orElse(-1);
+
+                    if(index != -1)
+                        dropdown.setSelection(index + 1);
+                }
+            }
+        });
     }
+
 
     @Override
     public void onDestroyView() {
@@ -203,11 +201,4 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
-    public boolean isFirstItemSelectedIsInitialValue() {
-        return firstItemSelectedIsInitialValue;
-    }
-
-    public void setFirstItemSelectedIsInitialValue(boolean firstItemSelectedIsInitialValue) {
-        this.firstItemSelectedIsInitialValue = firstItemSelectedIsInitialValue;
-    }
 }

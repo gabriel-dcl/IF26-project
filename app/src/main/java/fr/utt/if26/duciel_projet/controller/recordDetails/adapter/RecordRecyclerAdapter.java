@@ -1,4 +1,4 @@
-package fr.utt.if26.duciel_projet.controller.recordDetails;
+package fr.utt.if26.duciel_projet.controller.recordDetails.adapter;
 
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -19,7 +19,7 @@ import fr.utt.if26.duciel_projet.utils.DateUtil;
 
 public class RecordRecyclerAdapter  extends ListAdapter<RecordEntity, RecordRecyclerAdapter.RecordHolder> {
 
-    protected RecordRecyclerAdapter() {
+    public RecordRecyclerAdapter() {
         super(recordEntityItemCallback);
     }
 
@@ -43,12 +43,18 @@ public class RecordRecyclerAdapter  extends ListAdapter<RecordEntity, RecordRecy
 
         @Override
         public boolean areItemsTheSame(@NonNull RecordEntity oldItem, @NonNull RecordEntity newItem) {
-            return oldItem.getTaskName().equals(newItem.getTaskName());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return oldItem.getTaskName().equals(newItem.getTaskName()) && oldItem.getStartDate().isEqual(newItem.getStartDate());
+            }
+            return false;
         }
 
         @Override
         public boolean areContentsTheSame(@NonNull RecordEntity oldItem, @NonNull RecordEntity newItem) {
-            return oldItem.getTaskName().equals(newItem.getTaskName());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return oldItem.getTaskName().equals(newItem.getTaskName()) && oldItem.getStartDate().isEqual(newItem.getStartDate());
+            }
+            return false;
         }
     };
 

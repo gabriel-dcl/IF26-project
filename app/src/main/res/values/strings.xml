@@ -4,6 +4,7 @@
     <string name="title_home">Home</string>
     <string name="title_tasks">My tasks</string>
     <string name="add_task_button">Add a \n new task</string>
+    <string name="new_task_button">Add</string>
     <string name="title_record_details">Record Details</string>
     <string name="record_details_column_1">Day</string>
     <string name="record_details_column_2">Duration</string>
