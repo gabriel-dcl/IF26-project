@@ -52,14 +52,14 @@ public class RecordDetailsFragment extends Fragment {
 
 
         dropdown.setAdapter(adapter);
-        adapter.add("Aucune sélection");
+        adapter.add(String.valueOf(getContext().getResources().getString(R.string.no_selection_dropdown)));
         dropdown.setSelection(0);
 
         tasksViewModel.getAllTasks().observe(getViewLifecycleOwner(), (Observer<? super List<TaskEntity>>) o -> {
             adapter.clear();
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                adapter.add("Aucune sélection");
+                adapter.add(String.valueOf(getContext().getResources().getString(R.string.no_selection_dropdown)));
 
                 o.forEach(item -> {
                     adapter.add(item.getName());

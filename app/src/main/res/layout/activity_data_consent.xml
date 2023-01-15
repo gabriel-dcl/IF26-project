@@ -5,20 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.DataConsentActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="-150dp">
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:text="@string/data_consent_title"
+        android:textSize="120px" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="351dp"
-        android:layout_height="394dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eget diam suscipit, dignissim eros vel, consequat eros. Phasellus imperdiet id eros at sodales. Praesent diam lorem, maximus vel tincidunt sit amet, iaculis sagittis enim. Ut scelerisque quam non enim tincidunt, eget tempus ipsum mollis. Nam vestibulum sodales erat eget tincidunt. Suspendisse potenti. Etiam eget mi ac nulla consectetur imperdiet in ut purus. Sed ultrices erat ut tempor ultrices. Cras sed libero a ante lobortis viverra. Aliquam sed sapien eu felis sagittis faucibus. Proin aliquam odio lorem, sed accumsan mauris lacinia et.  Curabitur cursus in nisl sed finibus. Cras tempor velit eget ultricies dictum. Curabitur bibendum finibus maximus. Ut semper augue nec lacus convallis euismod. Donec blandit tortor turpis, id fermentum mauris egestas ac. Vestibulum sed nibh a sem gravida lacinia blandit non ante. Mauris malesuada odio a ligula suscipit ultrices.  Pellentesque quam tellus, semper pulvinar cursus vel, eleifend vitae sapien. Vestibulum et dignissim eros, vel bibendum sem. Sed vestibulum lorem sed risus dapibus tincidunt. Nam ultrices id justo ac rutrum. Suspendisse eu tellus in urna porta feugiat non et quam. Duis sit amet lacus velit. Suspendisse dictum sem consequat aliquet faucibus. Proin purus quam, convallis quis augue in, sagittis tristique dui. Nulla ac massa orci. Ut cursus nibh nec odio congue porta. Maecenas sed imperdiet erat. Fusce pulvinar libero ac dolor bibendum, non vestibulum felis maximus."
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:text="@string/general_conditions"
         tools:layout_editor_absoluteX="30dp"
+        android:textSize="17dp"
         tools:layout_editor_absoluteY="84dp" />
 
-    <Button
-        android:id="@+id/dataConsent"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="J'accepte"
-        tools:layout_editor_absoluteX="155dp"
-        tools:layout_editor_absoluteY="581dp" />
+        android:gravity="right"
+        >
+        <Button
+            android:id="@+id/dataConsent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/accept"
+            tools:layout_editor_absoluteX="155dp"
+            tools:layout_editor_absoluteY="581dp" />
+    </LinearLayout>
+
+</LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
